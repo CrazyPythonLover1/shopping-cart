@@ -25,9 +25,9 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="minusBtn" class="btn btn-default minusBtn"><i class="fas fa-minus"></i></button>
-                           <input id="currentQuantity" type="text" class="form-control text-center currentQuantity" value="1">
-                           <button id="plusBtn" class="btn btn-default plusBtn"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtn" class="btn btn-default "><i class="fas fa-minus"></i></button>
+                           <input id="currentQuantity" type="text" class="form-control text-center " value="1">
+                           <button id="plusBtn" class="btn btn-default "><i class="fas fa-plus"></i></button>
                         </div>
                         <h5 >$  <span id="price"  > 1219  </span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
@@ -48,7 +48,7 @@
                            <button id="plusBtn2" class="btn btn-default plusBtn "><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5 >$  <span id="price2"  > 59  </span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -80,31 +80,44 @@
 
 <script>
 
-   // calculation for the Plus button 
-   const plusBtn = document.getElementsByClassName("plusBtn");
-   for (var i = 0; i<plusBtn.length; i++){
-      plusBtn[i].addEventListener("click", function(){
-      const currentQuantity = getInputNumber("currentQuantity");
-      const updatedQuantity = addOne(currentQuantity, "currentQuantity");
-      const singlePrice = singleProductPrice("price", updatedQuantity);
-      const subtotal = getSubtotal(singlePrice);
-      getTotal(subtotal);
-      })
+   
+   const price2 = document.getElementById("price2").innerText;
+   const priceNumber2 = parseFloat(price2);
+   function singleProductPrice2(id,quantity ){
+      const quantityNumber = parseFloat(quantity);
+      const multiplyPrice = priceNumber2 * quantityNumber;
+      const updatedPrice = document.getElementById(id).innerText = multiplyPrice;
+      return updatedPrice; 
    }
 
-   // plusSingleProduct("plusBtn" );
-   minusSingleProduct("minusBtn");
-
-   function plusSingleProduct(id){
+   
+   
+// first plus Button
+   var subtotal = 0;
+   function plusSingleProduct(id,inputId){
       const plusBtn = document.getElementById(id);
       plusBtn.addEventListener("click", function(){
-      const currentQuantity = getInputNumber("currentQuantity");
-      const updatedQuantity = addOne(currentQuantity, "currentQuantity");
-      const singlePrice = singleProductPrice("price", updatedQuantity);
-      const subtotal = getSubtotal(singlePrice);
+      const currentQuantity = getInputNumber(inputId);
+      const updatedQuantity = addOne(currentQuantity, inputId);
+      const singlePriceUp = singleProductPrice("price", updatedQuantity);
+      getSubtotal(singlePriceUp-singlePrice);
       getTotal(subtotal);
       })
    }
+   plusSingleProduct("plusBtn","currentQuantity");
+// 2nd plus button 
+   var subtotal2 = 0;
+   function plusSingleProduct2(id,inputId){
+      const plusBtn = document.getElementById(id);
+      plusBtn.addEventListener("click", function(){
+      const currentQuantity = getInputNumber(inputId);
+      const updatedQuantity = addOne(currentQuantity, inputId);
+      const singlePriceUp = singleProductPrice2("price2", updatedQuantity);
+      getSubtotal(singlePriceUp-singlePrice2);
+      getTotal(subtotal);
+      })
+   }
+   plusSingleProduct2("plusBtn2","currentQuantity2")
 
    function minusSingleProduct(id){
       const minusBtn = document.getElementById(id);
@@ -112,17 +125,18 @@
       const currentQuantity = getInputNumber("currentQuantity");
       const reduce = currentQuantity -2;
       const updatedQuantity = addOne(reduce, "currentQuantity");
-      const singlePrice = singleProductPrice("price", updatedQuantity);
-      const subtotal = getSubtotal(singlePrice);
+      const singlePriceUp = singleProductPrice("price", updatedQuantity);
+      getSubtotal(singlePriceUp-singlePrice2);
       getTotal(subtotal);
       })
    }
+   minusSingleProduct("minusBtn");
    
    // Calculation for Minus Button 
    const price = document.getElementById("price").innerText;
    const priceNumber = parseFloat(price);
    //  multiply price with quantity in a single product
-   function singleProductPrice(id,quantity){
+   function singleProductPrice(id,quantity ){
       const quantityNumber = parseFloat(quantity);
       const multiplyPrice = priceNumber * quantityNumber;
       const updatedPrice = document.getElementById(id).innerText = multiplyPrice;
@@ -141,9 +155,10 @@
 
    // add price in subtotal 
    const singlePrice = singleProductPrice("price", 1);
-   document.getElementById("subtotal").innerText = singlePrice;
-   function getSubtotal(singleProductPrice){
-      const add = singleProductPrice ;
+   const singlePrice2 = singleProductPrice2("price2", 1);
+   const currentSub = document.getElementById("subtotal").innerText = singlePrice +singlePrice2;
+   function getSubtotal(subTotalSinglePrice){
+      const add = subTotalSinglePrice +currentSub ;
       const subtotal = document.getElementById("subtotal").innerText = add;
       return subtotal;
    }
