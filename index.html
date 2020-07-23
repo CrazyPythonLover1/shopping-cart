@@ -25,9 +25,9 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="minusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="currentQuantity" type="text" class="form-control text-center" value="1">
-                           <button id="plusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtn" class="btn btn-default minusBtn"><i class="fas fa-minus"></i></button>
+                           <input id="currentQuantity" type="text" class="form-control text-center currentQuantity" value="1">
+                           <button id="plusBtn" class="btn btn-default plusBtn"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5 >$  <span id="price"  > 1219  </span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
@@ -43,9 +43,9 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtn2" class="btn btn-default minusBtn"><i class="fas fa-minus"></i></button>
+                           <input id="currentQuantity2" type="text" class="form-control text-center currentQuantity" value="1">
+                           <button id="plusBtn2" class="btn btn-default plusBtn "><i class="fas fa-plus"></i></button>
 
                         </div>
                         <h5>$59</h5>
@@ -80,15 +80,36 @@
 
 <script>
 
-   
-   const plusBtn = document.getElementById("plusBtn");
-   plusBtn.addEventListener("click", function(){
-   const currentQuantity = getInputNumber("currentQuantity");
-   const updatedQuantity = addOne(currentQuantity, "currentQuantity");
-   const singlePrice = singleProductPrice("price", updatedQuantity);
-   subtotal(singlePrice);
-   })
+   // calculation for the Plus button 
+   const plusBtn = document.getElementsByClassName("plusBtn");
 
+   plusSingleProduct("plusBtn" );
+   minusSingleProduct("minusBtn");
+
+   function plusSingleProduct(id){
+      const plusBtn = document.getElementById(id);
+      plusBtn.addEventListener("click", function(){
+      const currentQuantity = getInputNumber("currentQuantity");
+      const updatedQuantity = addOne(currentQuantity, "currentQuantity");
+      const singlePrice = singleProductPrice("price", updatedQuantity);
+      const subtotal = getSubtotal(singlePrice);
+      getTotal(subtotal);
+      })
+   }
+
+   function minusSingleProduct(id){
+      const minusBtn = document.getElementById(id);
+      minusBtn.addEventListener("click", function(){
+      const currentQuantity = getInputNumber("currentQuantity");
+      const reduce = currentQuantity -2;
+      const updatedQuantity = addOne(reduce, "currentQuantity");
+      const singlePrice = singleProductPrice("price", updatedQuantity);
+      const subtotal = getSubtotal(singlePrice);
+      getTotal(subtotal);
+      })
+   }
+   
+   // Calculation for Minus Button 
    const price = document.getElementById("price").innerText;
    const priceNumber = parseFloat(price);
    //  multiply price with quantity in a single product
@@ -112,13 +133,18 @@
    // add price in subtotal 
    const singlePrice = singleProductPrice("price", 1);
    document.getElementById("subtotal").innerText = singlePrice;
-   
-   function subtotal(number){
-      const add = number + 00;
-      document.getElementById("subtotal").innerText = add;
+   function getSubtotal(singleProductPrice){
+      const add = singleProductPrice ;
+      const subtotal = document.getElementById("subtotal").innerText = add;
+      return subtotal;
+   }
+   // add all product price in total function
+   document.getElementById("total").innerText = singlePrice;
+   function getTotal(subtotal){
+      const total =  subtotal + 0;
+      document.getElementById("total").innerText = total;
    }
    
-
 
 </script>
 
