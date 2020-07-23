@@ -82,8 +82,17 @@
 
    // calculation for the Plus button 
    const plusBtn = document.getElementsByClassName("plusBtn");
+   for (var i = 0; i<plusBtn.length; i++){
+      plusBtn[i].addEventListener("click", function(){
+      const currentQuantity = getInputNumber("currentQuantity");
+      const updatedQuantity = addOne(currentQuantity, "currentQuantity");
+      const singlePrice = singleProductPrice("price", updatedQuantity);
+      const subtotal = getSubtotal(singlePrice);
+      getTotal(subtotal);
+      })
+   }
 
-   plusSingleProduct("plusBtn" );
+   // plusSingleProduct("plusBtn" );
    minusSingleProduct("minusBtn");
 
    function plusSingleProduct(id){
