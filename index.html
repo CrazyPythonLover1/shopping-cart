@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="currentQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="plusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5 >$  <span id="price"  > 1219  </span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -77,6 +77,42 @@
          </div>
       </div>
    </section>
+
+   <script>
+
+      
+      const plusBtn = document.getElementById("plusBtn");
+      plusBtn.addEventListener("click", function(){
+         const currentQuantity = getInputNumber("currentQuantity");
+         const updatedQuantity = addOne(currentQuantity, "currentQuantity");
+         AddingPrice("price", updatedQuantity);
+      })
+
+      const price = document.getElementById("price").innerText;
+      const priceNumber = parseFloat(price);
+
+
+      function AddingPrice(id,quantity){
+         const quantityNumber = parseFloat(quantity);
+
+         const multiplyPrice = priceNumber * quantityNumber;
+         
+         const updatedPrice = document.getElementById(id).innerText = multiplyPrice;
+         
+         return updatedPrice; 
+      }
+      function getInputNumber(id){
+         const inputField = document.getElementById(id).value;
+         const inputNumber = parseFloat(inputField);
+         return inputNumber;
+      }
+      function addOne(number, id){
+         const addOne = number + 1;
+         const updatedInput =  document.getElementById(id).value = addOne;
+         return updatedInput;
+      }
+   </script>
+
 </body>
 
 </html>
